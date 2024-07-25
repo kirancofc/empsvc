@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-management-system-k8s
+  labels:
+    app: student-management-system
+spec:
+  replicas: 1  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: student-management-system
+  template:
+    metadata:
+      labels:
+        app: student-management-system
+    spec:
+      containers:
+        - name: student-management-system
+          image: ashokgrandhi/student-management-system:latest  # Replace with your Docker image name and tag
+          ports:
+            - containerPort: 8084  # Specify the port your application listens on
+          # Add additional configuration like environment variables, volumes, etc., as needed
