@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Set your GitHub repository URL
-        REPO_URL = 'git@github.com:kirancofc/empsvc.git'
+        REPO_URL = 'https://github.com/kirancofc/empsvc.git'
     }
 
     stages {
