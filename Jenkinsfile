@@ -1,16 +1,16 @@
 pipeline {
     agent any
 
-    //environment {
+    environment {
         // Set your GitHub repository URL
-        //REPO_URL = 'https://github.com/kirancofc/empsvc.git'
-    //}
+        REPO_URL = 'https://github.com/kirancofc/empsvc.git'
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 // Clone the repository
-                //git branch: 'main', url: "${REPO_URL}"
+                git branch: 'main', url: "${REPO_URL}"
             }
         }
 
