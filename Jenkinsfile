@@ -10,14 +10,15 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clone the repository
-                git branch: 'main', url: "${REPO_URL}"
+                //git branch: 'main', url: "${REPO_URL}"
             }
         }
 
         stage('Build') {
             steps {
                 // Clean and build the project using Maven
-                sh 'mvn clean install'
+                //sh 'mvn clean install'
+                sh 'mvn clean package'
             }
         }
 
