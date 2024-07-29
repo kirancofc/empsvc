@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    //agent any
+
+  agent {
+        docker {
+            image 'maven:3.9.8-openjdk-17'
+        }
+    }
 
     environment {
         // Set your GitHub repository URL
