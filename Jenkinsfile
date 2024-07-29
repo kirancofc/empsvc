@@ -37,10 +37,12 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
+        stage('Build docker image') {
             steps {
                 // Deploy steps can be added here, such as copying files to a server
-                echo 'Deploy stage (optional)'
+                //echo 'Deploy stage (optional)'
+                script{
+                    sh 'docker build -t student-management-system .'
             }
         }
     }
