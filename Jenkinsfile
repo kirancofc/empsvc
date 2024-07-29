@@ -4,6 +4,12 @@ pipeline {
     environment {
         // Set your GitHub repository URL
         REPO_URL = 'https://github.com/kirancofc/empsvc.git'
+        AWS_ACCOUNT_ID = '851725315615'
+        AWS_REGION = 'us-east-2' // Set your desired region
+        ECR_REPO = 'employee_service_repo'
+        REPOSITORY_URI = '851725315615.dkr.ecr.us-east-2.amazonaws.com'
+        IMAGE_REPO_NAME = 'student-management-system'
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -37,15 +43,32 @@ pipeline {
             }
         }
         
-        stage('Build docker image') {
+        stage('Build Docker image') {
             steps {
                 // Deploy steps can be added here, such as copying files to a server
                 //echo 'Deploy stage (optional)'
                 script{
-                    sh 'docker build -t student-management-system .'
+                    sh 'docker build -t ${IMAGE_REPO_NAME}:${BUILD_NUMBER} .'
                 }
             }
         }
+       stage('Logging into AWS ECR') {
+            steps {
+                script {
+                sh """aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"""
+                }
+                 
+            }
+        }
+        stage('Push Docker Image to ECR') {
+            steps{  
+                script {
+                sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
+                sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"""
+                }
+            }
+        }
+    
     }
 
     post {
