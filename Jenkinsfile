@@ -43,6 +43,7 @@ pipeline {
                 //echo 'Deploy stage (optional)'
                 script{
                     sh 'docker build -t student-management-system .'
+                }
             }
         }
     }
