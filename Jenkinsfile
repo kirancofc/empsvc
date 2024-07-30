@@ -59,7 +59,7 @@ pipeline {
             steps{  
                 script {
                     docker.withRegistry(ECR_REG, ECR_REG_CRED) {
-                    dockerImage.push(${BUILD_NUMBER})
+                    dockerImage.push("${BUILD_NUMBER}")
                     dockerImage.push('latest') }
                 }
             }
