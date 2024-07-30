@@ -55,7 +55,7 @@ pipeline {
        stage('Logging into AWS ECR') {
             steps {
                 script {
-                sh """docker login -u AWS -p $(aws ecr get-login-password --region ${AWS_REGION}) ${REPOSITORY_URI}"""
+                sh """docker login -u AWS -p $(aws ecr get-login-password --region us-east-2) ${REPOSITORY_URI}"""
                 }
                  
             }
