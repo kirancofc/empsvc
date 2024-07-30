@@ -50,7 +50,7 @@ pipeline {
             steps {
 
                 script{
-                    dockerImage = docker.build("${IMAGE_REPO_NAME}:${BUILD_NUMBER}")
+                    dockerImage = docker.build(ECR_URI + "${IMAGE_REPO_NAME}:${BUILD_NUMBER}")
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
             steps{  
                 script {
                     docker.withRegistry(ECR_REG, ECR_REG_CRED) {
-                    dockerImage.push() }
+                    dockerImage.push("${IMAGE_REPO_NAME}:${BUILD_NUMBER}") }
                 }
             }
         }
