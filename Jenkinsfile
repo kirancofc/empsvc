@@ -48,33 +48,19 @@ pipeline {
         
         stage('Build Docker image') {
             steps {
-                // Deploy steps can be added here, such as copying files to a server
-                //echo 'Deploy stage (optional)'
+
                 script{
-                    //sh 'docker build -t ${IMAGE_REPO_NAME}:${BUILD_NUMBER} .'
                     //dockerImage = docker.build( ECR_URI +":${BUILD_NUMBER}")
-                    dockerImage = docker.build( "${IMAGE_REPO_NAME}:${BUILD_NUMBER}")
+                    dockerImage = docker.build("${IMAGE_REPO_NAME}:${BUILD_NUMBER}")
                 }
             }
         }
-       //stage('Logging into AWS ECR') {
-            //steps {
-                //script {
-                //sh """aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"""
-                //}
-                 
-            //}
-        //}
+
         stage('Push Docker Image to ECR') {
             steps{  
                 script {
-                //sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
-                //sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"""
                     docker.withRegistry(ECR_REG, ECR_REG_CRED) {
-                    //dockerImage.push("${BUILD_NUMBER}")
-                    //dockerImage.push('latest')
                     dockerImage.push("${IMAGE_REPO_NAME}:${BUILD_NUMBER}") }
-                    
                 }
             }
         }
