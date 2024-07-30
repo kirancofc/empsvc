@@ -13,6 +13,9 @@ pipeline {
         ECR_REG_CRED = 'ecr:us-east-2:awsjenkinsuser'
         IMAGE_REPO_NAME = 'student-management-system'
         IMAGE_TAG = "${BUILD_NUMBER}"
+
+        cluster = 'SystemSol_Employee_Service'
+        service = 'EmpSvcService'
     }
 
     stages {
@@ -61,6 +64,14 @@ pipeline {
                     docker.withRegistry(ECR_REG, ECR_REG_CRED) {
                     dockerImage.push("${BUILD_NUMBER}")
                     dockerImage.push('latest') }
+                }
+            }
+        }
+
+        stage('Deploy to ECS'){
+            steps{
+                withAWS(credentials:'awsjenkinsuser', region:'us-east-2'){
+                    sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
                 }
             }
         }
