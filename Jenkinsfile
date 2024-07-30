@@ -52,8 +52,9 @@ pipeline {
                 script{
                     sh 'docker build -t ${DOCKER_IMAGE} .'
                     def dockerImage = docker.image("${DOCKER_IMAGE}")
-                    docker.withRegistry("${REPOSITORY_URI}", "AWS")
+                    docker.withRegistry("https://${REPOSITORY_URI}", "AWS"){
                     dockerImage.push()
+                    }
                 }
                  
             }
