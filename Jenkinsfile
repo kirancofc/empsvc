@@ -51,7 +51,7 @@ pipeline {
                 //echo 'Deploy stage (optional)'
                 script{
                     //sh 'docker build -t ${IMAGE_REPO_NAME}:${BUILD_NUMBER} .'
-                    dockerImage = docker.build( ECR_URI +":${BUILD_NUMBER}",".")
+                    dockerImage = docker.build( ECR_URI +":${BUILD_NUMBER}")
                 }
             }
         }
