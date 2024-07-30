@@ -46,7 +46,7 @@ pipeline {
         stage('Build Docker image and Push to ECR') {
             environment {
                REGISTRY_CREDENTIALS = credentials('AWS')
-               DOCKER_IMAGE = ${IMAGE_REPO_NAME}:${BUILD_NUMBER}
+               DOCKER_IMAGE = "${IMAGE_REPO_NAME}:${BUILD_NUMBER}"
             }
             steps {
                 script{
