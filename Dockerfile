@@ -1,5 +1,5 @@
 # define base docker image
-FROM openjdk:17-slim
+FROM gcr.io/distroless/java17-debian12
 
 WORKDIR /app
 
