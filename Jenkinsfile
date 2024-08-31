@@ -10,7 +10,7 @@ pipeline {
         REPOSITORY_URI = '851725315615.dkr.ecr.us-east-2.amazonaws.com'
         ECR_URI = '851725315615.dkr.ecr.us-east-2.amazonaws.com/employee_service_repo'
         ECR_REG = 'https://851725315615.dkr.ecr.us-east-2.amazonaws.com'
-        //ECR_REG_CRED = 'ecr:us-east-2:awsjenkinsuser'
+        ECR_REG_CRED = 'ecr:us-east-2:awsjenkinsuser'
         //ECR_REG_CRED = 'ecr:us-east-2:aws'
         IMAGE_REPO_NAME = 'student-management-system'
         IMAGE_TAG = "${BUILD_NUMBER}"
@@ -62,8 +62,7 @@ pipeline {
         stage('Push Docker Image to ECR') {
             steps{  
                 script {
-                    //docker.withRegistry(ECR_REG, ECR_REG_CRED) {
-                    docker.withRegistry(ECR_REG) {
+                    docker.withRegistry(ECR_REG, ECR_REG_CRED) {
                     dockerImage.push("${BUILD_NUMBER}")
                     dockerImage.push('latest') }
                 }
