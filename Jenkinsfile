@@ -16,7 +16,7 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
 
         cluster = 'SystemSol_Employee_Service'
-        service = 'EmpSvcService'
+        service = 'EmpSvcFGService'
     }
 
     stages {
